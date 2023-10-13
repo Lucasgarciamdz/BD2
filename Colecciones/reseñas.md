@@ -1,0 +1,5 @@
+- id_reseña (ObjectId)
+- id_juego (ObjectId)
+- id_usuario (ObjectId)
+- rating (int)
+- comment (string)

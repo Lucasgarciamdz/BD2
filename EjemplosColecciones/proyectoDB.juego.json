@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "65206ca8327b5a4c0e4f1498"
+  },
+  "titulo": "Call of Duty",
+  "descripcion": "juego de combate",
+  "genero": "fps",
+  "plataforma": [
+    "windows",
+    "linux"
+  ],
+  "precio": 1500,
+  "desarrollador": [
+    "activision",
+    "treyarch"
+  ],
+  "anio_lanzamiento": "05/11/2014",
+  "resenia": 8,
+  "clasificacion_edad": 16,
+  "juegos_relacionados": [],
+  "imagen_url": "imagen",
+  "video_url": "video",
+  "logros": [
+    "multikill",
+    "nucelar"
+  ]
+}]

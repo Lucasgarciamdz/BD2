@@ -1,0 +1,5 @@
+- usuario {id_usuario (ObjectId), nombre_usuario (String), foto_perfil (String)}
+- nivel (string)
+- juegos_recientes (array[{id_juego(ObjectID), titulo(string), imagen_url(string)}])
+- insignias (array)
+- estado_en_linea (bool)

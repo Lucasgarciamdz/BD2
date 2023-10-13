@@ -1,0 +1,2 @@
+- usuario {id_usuario (ObjectId), nombre_usuario (String), foto_perfil (String)}
+- juego {game_id(ObjectID), title(string), imagen_url(string)}

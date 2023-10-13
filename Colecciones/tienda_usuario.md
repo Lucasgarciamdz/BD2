@@ -1,0 +1,4 @@
+- usuario {usuario_id (ObjectID), nombre_usuario (string), mail (string)}
+- wishlist (array[{id_juego (ObjectID), titulo (String), precio (Number), porcentaje_descuento (Number)}])
+- saldo (number)
+- region (string)

@@ -1,0 +1,13 @@
+[{
+  "_id": {
+    "$oid": "65206b31327b5a4c0e4f1497"
+  },
+  "nombre": "Franco",
+  "apellido": "Bertoldi",
+  "username": "franco_bertoldi",
+  "fecha_nac": "22/09/2002",
+  "email": "f.bertoldi@alumno.um.edu.ar",
+  "password": "123",
+  "juegos_comprados": [],
+  "resenias": []
+}]
