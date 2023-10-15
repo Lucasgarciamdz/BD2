@@ -7,7 +7,7 @@ db.createCollection("tienda_usuario",{
             required: ["usuario_id", "wishlist", "total"],
             properties: {
                 usuario_id: {
-                    bsonType: "objectId",
+                    bsonType: "number",
                     description: "Id del usuario"
                 },
                 wishlist: {
@@ -15,13 +15,13 @@ db.createCollection("tienda_usuario",{
                     description: "Lista de deseos",
                     items: {
                         bsonType: "object",
-                        required: ["game_id", "title", "imagen_url", "precio"],
+                        required: ["juego_id", "titulo", "imagen_url", "precio"],
                         properties: {
                             game_id: {
-                                bsonType: "objectId",
+                                bsonType: "number",
                                 description: "Id del juego"
                             },
-                            title: {
+                            titulo: {
                                 bsonType: "string",
                                 description: "Título del juego"
                             },
@@ -30,14 +30,14 @@ db.createCollection("tienda_usuario",{
                                 description: "Imagen del juego"
                             },
                             precio: {
-                                bsonType: "double",
+                                bsonType: "number",
                                 description: "Precio del juego"
                             }
                         }
                     }
                 },
                 total: {
-                    bsonType: "double",
+                    bsonType: "number",
                     description: "Total de la lista de deseos"
                 }
             }

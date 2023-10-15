@@ -4,8 +4,13 @@ db.createCollection("anunciante",{
     validator:{
         $jsonSchema:{
             bsonType: "object",
-            required: ["empresa", "imagen_url", "descripcion", "tiempo_de_publicidad", "region", "idioma"],
+            required: ["anunciante_id", "empresa", "imagen_url", "descripcion", "tiempo_de_publicidad", "pais", "idioma"],
             properties: {
+                anunciante_id: {
+                    bsonType: "number",
+                    description: "Id del anunciante propio",
+                    uniqueItems: true
+                },
                 empresa: {
                     bsonType: "string",
                     description: "Nombre de la empresa"
@@ -19,12 +24,12 @@ db.createCollection("anunciante",{
                     description: "Descripción de la empresa"
                 },
                 tiempo_de_publicidad: {
-                    bsonType: "string",
-                    description: "Tiempo de publicidad"
+                    bsonType: "date",
+                    description: "Hasta cuando se va a mostrar la publicidad"
                 },
-                region: {
+                pais: {
                     bsonType: "string",
-                    description: "Región de la empresa"
+                    description: "País de la empresa"
                 },
                 idioma: {
                     bsonType: "string",

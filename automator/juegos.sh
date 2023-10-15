@@ -5,34 +5,39 @@ db.createCollection("juegos",
     validator:{
         $jsonSchema:{
             bsonType: "object",
-            required: ["game_id", "titulo", "descripcion", "desrrollador", "fecha_lanzamiento", "rating", "precio", "genero", "plataforma","juegos_relacionados", "imagen_url", "video_url", "screenshots", "tags"],
+            required: ["juego_id", "titulo", "descripcion", "desarrolladores", "fecha_lanzamiento", "rating", "precio", "genero", "plataforma", "imagen_url", "video_url", "screenshots", "tags", "logros"],
             properties: {
-                game_id: {
-                    bsonType: "objectId",
-                    description: "Id del juego"
+                juego_id: {
+                    bsonType: "number",
+                    description: "Id del juego propio",
+                    uniqueItems: true
                 },
                 titulo: {
                     bsonType: "string",
                     description: "Título del juego"
                 },
-                descripcion: {
+                description: {
                     bsonType: "string",
                     description: "Descripción del juego"
                 },
-                desrrollador: {
-                    bsonType: "string",
-                    description: "Desarrollador del juego"
+                desarrolladores: {
+                    bsonType: "array",
+                    description: "Desarrolladores del juego",
+                    items: {
+                        bsonType: "string",
+                        description: "Desarrollador del juego"
+                    },
                 },
                 fecha_lanzamiento: {
                     bsonType: "date",
                     description: "Fecha de lanzamiento del juego"
                 },
                 rating: {
-                    bsonType: "double",
+                    bsonType: "number",
                     description: "Rating del juego"
                 },
                 precio: {
-                    bsonType: "double",
+                    bsonType: "number",
                     description: "Precio del juego"
                 },
                 genero: {
@@ -40,8 +45,12 @@ db.createCollection("juegos",
                     description: "Género del juego"
                 },
                 plataforma: {
-                    bsonType: "string",
-                    description: "Plataforma del juego"
+                    bsonType: "array",
+                    description: "Plataformas del juego",
+                    items: {
+                        bsonType: "string",
+                        description: "Plataforma del juego"
+                    }
                 },
                 juegos_relacionados: {
                     bsonType: "array",
@@ -87,6 +96,14 @@ db.createCollection("juegos",
                     items: {
                         bsonType: "string",
                         description: "Tag del juego"
+                    }
+                },
+                logros: {
+                    bsonType: "array",
+                    description: "Logros del juego",
+                    items: {
+                        bsonType: "string",
+                        description: "Logro del juego"
                     }
                 }
             }

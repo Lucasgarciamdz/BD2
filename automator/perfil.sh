@@ -7,7 +7,7 @@ db.createCollection("perfil", {
       required: ["usuario_id", "nombre_usuario", "foto_perfil", "nivel", "juegos_recientes", "insignias", "estado_en_linea"],
       properties: {
         usuario_id: {
-          bsonType: "objectId",
+          bsonType: "number",
           description: "Id del usuario"
         },
         nombre_usuario: {

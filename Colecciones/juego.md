@@ -6,10 +6,9 @@
 - precio (number)
 - desarrollador (array[string])
 - año de lanzamiento (string)
-- reseñas (array[Reseñas])
 - rating (number)
-- clasificacion por edad 
 - related games (array[{id_juego(ObjectID), titulo(string), imagen_url(string)}])
 - imagen_url (string)
 - video_url (string)
 - logros (array[string])
+

@@ -4,8 +4,13 @@ db.createCollection("usuarios", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["nombre", "apellido", "username", "fecha_nac", "email", "password", "foto_perfil", "juegos_recientes"],
+      required: ["usuario_id", "nombre", "apellido", "username", "fecha_nac", "email", "password", "foto_perfil"],
       properties: {
+        usuario_id: {
+          bsonType: "number",
+          description: "Id del usuario propio",
+          uniqueItems: true
+        },
         nombre: {
           bsonType: "string",
           description: "Nombre"

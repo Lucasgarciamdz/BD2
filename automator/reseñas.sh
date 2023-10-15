@@ -4,15 +4,15 @@ db.createCollection("reseñas",{
     validator:{
         $jsonSchema:{
             bsonType: "object",
-            required: ["usuario", "juego", "contenido", "calificacion", "fecha"],
+            required: ["usuario", "juego", "comentario", "calificacion", "fecha"],
             properties: {
                 usuario:{
                     bsonType: "object",
                     description: "Usuario",
                     properties: {
                         usuario_id: {
-                            bsonType: "objectId",
-                            description: "Id del usuario"
+                            bsonType: "number",
+                            description: "Id del usuario propio"
                         },
                         nombre_usuario: {
                             bsonType: "string",
@@ -25,7 +25,7 @@ db.createCollection("reseñas",{
                     description: "Juego",
                     properties: {
                         juego_id: {
-                            bsonType: "objectId",
+                            bsonType: "number",
                             description: "Id del juego"
                         },
                         titulo_juego: {
@@ -34,12 +34,12 @@ db.createCollection("reseñas",{
                         }
                     }
                 },
-                contenido: {
+                comentario: {
                     bsonType: "string",
-                    description: "Contenido de la reseña"
+                    description: "Comentario de la reseña"
                 },
                 calificacion: {
-                    bsonType: "double",
+                    bsonType: "number",
                     description: "Calificación de la reseña"
                 },
                 fecha: {
