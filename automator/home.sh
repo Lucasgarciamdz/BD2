@@ -11,16 +11,16 @@ db.createCollection("home_page", {
           description: "Usuario",
           properties: {
             usuario_id: {
-              bsonType: "objectId",
+              bsonType: "number",
               description: "Id del usuario"
             },
             nombre_usuario: {
               bsonType: "string",
               description: "Nombre del usuario"
             },
-            mail: {
+            foto_perfil: {
               bsonType: "string",
-              description: "Correo electrónico del usuario"
+              description: "Foto de perfil del usuario"
             }
           }
         },
@@ -84,7 +84,7 @@ db.createCollection("home_page", {
             required: ["anunciante_id", "nombre", "imagen_url"],
             properties: {
               anunciante_id: {
-                bsonType: "objectId",
+                bsonType: "number",
                 description: "Id del anunciante"
               },
               nombre: {

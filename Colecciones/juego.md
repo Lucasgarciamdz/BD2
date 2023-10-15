@@ -11,4 +11,3 @@
 - imagen_url (string)
 - video_url (string)
 - logros (array[string])
-

@@ -6,10 +6,23 @@ db.createCollection("tienda_usuario",{
             bsonType: "object",
             required: ["usuario_id", "wishlist", "total"],
             properties: {
-                usuario_id: {
-                    bsonType: "number",
-                    description: "Id del usuario"
-                },
+                usuario: {
+                    bsonType: "object",
+                    description: "Usuario",
+                    properties: {
+                        usuario_id: {
+                        bsonType: "number",
+                        description: "Id del usuario"
+                        },
+                        nombre_usuario: {
+                        bsonType: "string",
+                        description: "Nombre del usuario"
+                        },
+                        mail: {
+                        bsonType: "string",
+                        description: "Mail del usuario"
+                        }
+                    }
                 wishlist: {
                     bsonType: "array",
                     description: "Lista de deseos",

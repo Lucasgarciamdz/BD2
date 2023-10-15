@@ -6,17 +6,23 @@ db.createCollection("biblioteca", {
       bsonType: "object",
       required: ["usuario_id", "nombre_usuario", "foto_perfil", "juegos"],
       properties: {
-        usuario_id: {
-          bsonType: "number",
-          description: "Id del usuario"
-        },
-        nombre_usuario: {
-          bsonType: "string",
-          description: "Nombre del usuario"
-        },
-        foto_perfil: {
-          bsonType: "string",
-          description: "Foto de perfil del usuario"
+        usuario: {
+          bsonType: "object",
+          description: "Usuario",
+          properties: {
+              usuario_id: {
+              bsonType: "number",
+              description: "Id del usuario"
+            },
+            nombre_usuario: {
+              bsonType: "string",
+              description: "Nombre del usuario"
+            },
+            foto_perfil: {
+              bsonType: "string",
+              description: "Foto de perfil del usuario"
+            }
+          }
         },
         juegos: {
           bsonType: "array",
@@ -26,7 +32,7 @@ db.createCollection("biblioteca", {
             required: ["game_id", "title", "imagen_url", "tiempo_jugado", "ultima_vez_jugado"],
             properties: {
               game_id: {
-                bsonType: "objectId",
+                bsonType: "number",
                 description: "Id del juego"
               },
               title: {
@@ -38,7 +44,7 @@ db.createCollection("biblioteca", {
                 description: "Imagen del juego"
               },
               tiempo_jugado: {
-                bsonType: "string",
+                bsonType: "number",
                 description: "Tiempo jugado del juego"
               },
               ultima_vez_jugado: {

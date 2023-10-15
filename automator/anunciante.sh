@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-db.createCollection("anunciante",{
+db.createCollection("anunciantes",{
     validator:{
         $jsonSchema:{
             bsonType: "object",
