@@ -4,7 +4,6 @@ db.createCollection("biblioteca", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["usuario_id", "nombre_usuario", "foto_perfil", "juegos"],
       properties: {
         usuario: {
           bsonType: "object",
@@ -12,7 +11,8 @@ db.createCollection("biblioteca", {
           properties: {
               usuario_id: {
               bsonType: "number",
-              description: "Id del usuario"
+              description: "Id del usuario",
+              uniqueItems: true
             },
             nombre_usuario: {
               bsonType: "string",
@@ -29,9 +29,9 @@ db.createCollection("biblioteca", {
           description: "Todos los juegos del usuario",
           items: {
             bsonType: "object",
-            required: ["game_id", "title", "imagen_url", "tiempo_jugado", "ultima_vez_jugado"],
+            required: ["juego_id", "title", "imagen_url", "tiempo_jugado", "ultima_vez_jugado"],
             properties: {
-              game_id: {
+              juego_id: {
                 bsonType: "number",
                 description: "Id del juego"
               },

@@ -2,17 +2,17 @@ const MongoClient = require('mongodb').MongoClient;
 
 async function insertGameData() {
     const url = 'mongodb://localhost:27017';
-    const dbName = 'gameStore';
+    const dbName = 'gameStoreFinal21';
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
     const collection = db.collection('juegos');
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 10000; i++) {
         const juegosData = {
                     "juego_id": i,
                     "titulo": "juego" + i,
                     "descripcion": "descripcion juego" + i,
-                    "desarrollador": ["desarrollador" + i, "desarrollador" + i + 1, "desarrollador" + i + 2],
+                    "desarrolladores": ["desarrollador" + i, "desarrollador" + i + 1, "desarrollador" + i + 2],
                     "fecha_lanzamiento": new Date(),
                     "rating": i % 2,
                     "precio": i,

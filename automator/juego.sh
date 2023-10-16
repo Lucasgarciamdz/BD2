@@ -16,7 +16,7 @@ db.createCollection("juegos",
                     bsonType: "string",
                     description: "Título del juego"
                 },
-                description: {
+                descripcion: {
                     bsonType: "string",
                     description: "Descripción del juego"
                 },

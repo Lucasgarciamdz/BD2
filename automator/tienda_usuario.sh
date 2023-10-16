@@ -1,28 +1,29 @@
 #!/bin/zsh
 
-db.createCollection("tienda_usuario",{
-    validator:{
-        $jsonSchema:{
+db.createCollection("tienda_usuario", {
+    validator: {
+        $jsonSchema: {
             bsonType: "object",
-            required: ["usuario_id", "wishlist", "total"],
+            required: ["usuario", "wishlist", "total"],
             properties: {
                 usuario: {
                     bsonType: "object",
                     description: "Usuario",
                     properties: {
                         usuario_id: {
-                        bsonType: "number",
-                        description: "Id del usuario"
+                            bsonType: "number",
+                            description: "Id del usuario"
                         },
                         nombre_usuario: {
-                        bsonType: "string",
-                        description: "Nombre del usuario"
+                            bsonType: "string",
+                            description: "Nombre del usuario"
                         },
                         mail: {
-                        bsonType: "string",
-                        description: "Mail del usuario"
+                            bsonType: "string",
+                            description: "Mail del usuario"
                         }
                     }
+                },
                 wishlist: {
                     bsonType: "array",
                     description: "Lista de deseos",
@@ -30,7 +31,7 @@ db.createCollection("tienda_usuario",{
                         bsonType: "object",
                         required: ["juego_id", "titulo", "imagen_url", "precio"],
                         properties: {
-                            game_id: {
+                            juego_id: {
                                 bsonType: "number",
                                 description: "Id del juego"
                             },

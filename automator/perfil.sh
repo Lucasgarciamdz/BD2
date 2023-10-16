@@ -4,7 +4,7 @@ db.createCollection("perfil", {
 	validator: {
 		$jsonSchema: {
 			bsonType: "object",
-			required: ["usuario_id", "nombre_usuario", "foto_perfil", "nivel", "juegos_recientes", "insignias", "estado_en_linea"],
+			required: ["usuario", "nivel", "juegos_recientes", "insignias", "estado_en_linea"],
 			properties: {
 				usuario: {
 				bsonType: "object",
@@ -35,7 +35,7 @@ db.createCollection("perfil", {
 						bsonType: "object",
 						properties: {
 							game_id: {
-								bsonType: "objectId",
+								bsonType: "number",
 								description: "Id del juego"
 							},
 							titulo: {

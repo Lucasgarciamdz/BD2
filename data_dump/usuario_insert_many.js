@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 async function insertUsuarioData() {
     const url = 'mongodb://localhost:27017';
-    const dbName = 'gameStore';
+    const dbName = 'gameStoreFinal21';
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
     const collection = db.collection('usuarios');
