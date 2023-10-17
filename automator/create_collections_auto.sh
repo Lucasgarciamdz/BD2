@@ -55,6 +55,9 @@ mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "u
 --file ../data_dump/biblioteca_insert_many.js \
 --file ../data_dump/juego_insert_many.js \
 --file ../data_dump/usuario_insert_many.js \
+--file ../data_dump/anunciante_insert_many.js \
+--file ../data_dump/home_insert_many.js \
+
 
 # Check the exit code of the last command
 if [ $? -ne 0 ]; then

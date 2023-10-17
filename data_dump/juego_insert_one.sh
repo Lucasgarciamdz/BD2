@@ -14,5 +14,6 @@ db.juegos.insertOne({
                     "video_url": "https://picsum.photos/id/300/200/300",
                     "screenshots": ["https://picsum.photos/id/281/200/300", "https://picsum.photos/id/282/200/300", "https://picsum.photos/id/283/200/300"],
                     "tags": ["Shooter", "Primera persona", "Accion"],
-                    "logros": ["Multikill", "Nuclear"]
+                    "logros": ["Multikill", "Nuclear"],
+                    "valoracion": 8.7
                     })

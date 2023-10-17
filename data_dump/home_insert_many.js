@@ -72,16 +72,63 @@ async function insertHomeData() {
 
   for (let i = 1; i < 1000; i++) {
     const { usuario, idioma, region, listaAnunciantes, listaJuegosDestacados, listaJuegosDescuentos} = getData(i);
+    
+    // Completar los campos "query" en los documentos de listaAnunciantes
+    const updatedAnunciantes = await Promise.all(listaAnunciantes.map(async (anunciante) => {
+      if (anunciante.query) {
+        // Realizar una consulta para obtener información faltante del anunciante
+        const anuncianteInfo = await db.collection('anunciantes').findOne({ "anunciante_id": anunciante.anunciante_id });
+        if (anuncianteInfo) {
+          return {
+            ...anunciante,
+            "nombre": anuncianteInfo.nombre,
+            "imagen_url": anuncianteInfo.imagen_url
+          };
+        }
+      }
+      return anunciante;
+    }));
+    
+    // Completar los campos "query" en los documentos de listaJuegosDescuentos
+    const updatedJuegosDescuentos = await Promise.all(listaJuegosDescuentos.map(async (juegoDescuento) => {
+      if (juegoDescuento.query) {
+        // Realizar una consulta para obtener información faltante del juegoDescuento
+        const juegoDescuentoInfo = await db.collection('juegos').findOne({ "juego_id": juegoDescuento.juego_id });
+        if (juegoDescuentoInfo) {
+          return {
+            ...juegoDescuento,
+            "nombre": juegoDescuentoInfo.nombre,
+            "imagen_url": juegoDescuentoInfo.imagen_url,
+            "precio": juegoDescuentoInfo.precio
+          };
+        }
+      }
+      return juegoDescuento;
+    }));
+    
+    // Completar los campos "query" en el documento de usuario
+    if (usuario.query) {
+      // Realizar una consulta para obtener información faltante del usuario
+      const usuarioInfo = await db.collection('usuarios').findOne({ "usuario_id": usuario.usuario_id });
+      if (usuarioInfo) {
+        usuario = {
+          ...usuario,
+          "nombre_usuario": usuarioInfo.nombre_usuario,
+          "foto_perfil": usuarioInfo.foto_perfil
+        };
+      }
+    }
+
     const homeData = {
       "usuario": usuario,
       "idioma": idioma,
       "region": region,
-      "anunciantes": listaAnunciantes,
+      "anunciantes": updatedAnunciantes,
       "juegos_destacados": listaJuegosDestacados,
-      "juegos_descuento": listaJuegosDescuentos
+      "juegos_descuento": updatedJuegosDescuentos
     };
 
-    await collection.insertHomeData(homeData);
+    await collection.insertOne(homeData);
   }
 
   client.close();
