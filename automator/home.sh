@@ -65,7 +65,7 @@ db.createCollection("home_page", {
                 bsonType: "number",
                 description: "Id del juego"
               },
-              nombre: {
+              titulo: {
                 bsonType: "string",
                 description: "Nombre del juego"
               },

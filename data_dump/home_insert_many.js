@@ -26,7 +26,7 @@ async function insertHomeData() {
     for (let j = 0; j < 10; j++) {
       listaJuegosDescuentos.push({
         "juego_id": j,
-        "nombre": "query",
+        "titulo": "query",
         "imagen_url": "query",
         "precio": "query",
         "descuento": (Math.floor(Math.random() * 1001) * 0.1).toFixed(1),
@@ -77,7 +77,7 @@ async function insertHomeData() {
         if (juegoDescuentoInfo) {
           return {
             ...juegoDescuento,
-            "nombre": juegoDescuentoInfo.nombre,
+            "titulo": juegoDescuentoInfo.nombre,
             "imagen_url": juegoDescuentoInfo.imagen_url,
             "precio": juegoDescuentoInfo.precio
           };
