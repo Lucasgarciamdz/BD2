@@ -44,13 +44,13 @@ db.createCollection("usuarios", {
           description: "Juegos recientes",
           items: {
             bsonType: "object",
-            required: ["game_id", "title", "imagen_url", "tiempo_jugado", "ultima_vez_jugado"],
+            required: ["game_id", "titulo", "imagen_url", "tiempo_jugado", "ultima_vez_jugado"],
             properties: {
               game_id: {
                 bsonType: "objectId",
                 description: "Id del juego"
               },
-              title: {
+              titulo: {
                 bsonType: "string",
                 description: "Título del juego"
               },

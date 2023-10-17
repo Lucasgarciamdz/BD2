@@ -6,10 +6,11 @@ function getJuegos(userId) {
   for (let i = 0; i < numJuegos; i++) {
     const juego = {
       "juego_id": i + Math.floor(Math.random() * 1000),
-      "title": "query",
+      "titulo": "query",
       "imagen_url": "query",
       "tiempo_jugado": Math.floor(Math.random() * 1000),
-      "ultima_vez_jugado": new Date()
+      "ultima_vez_jugado": new Date(),
+      "query": true
     };
     listaJuegos.unshift(juego);
   }
@@ -17,7 +18,8 @@ function getJuegos(userId) {
   const usuario = {
     "usuario_id": userId,
     "nombre_usuario": "query",
-    "foto_perfil": "query"
+    "foto_perfil": "query",
+    "query": true
   };
 
   return { usuario, juegos: listaJuegos };

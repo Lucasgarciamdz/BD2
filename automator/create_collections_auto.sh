@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-# Connect to MongoDB instance and switch to gameStoreFinal database
+# Create collections
 mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "use gameStoreFinal21" \
 --file ./usuario.sh \
 --file ./biblioteca.sh \
@@ -10,6 +10,16 @@ mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "u
 --file ./anunciante.sh \
 --file ./reseña.sh \
 --file ./tienda_usuario.sh \
+
+# Check the exit code of the last command
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to create collections"
+    exit 1
+fi
+
+
+# Insert data from data dump files
+mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "use gameStoreFinal21" \
 --file ../data_dump/usuario_insert_one.sh \
 --file ../data_dump/anunciante_insert_one.sh \
 --file ../data_dump/juego_insert_one.sh \
@@ -18,12 +28,36 @@ mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "u
 --file ../data_dump/tienda_usuario_insert_one.sh \
 --file ../data_dump/home_insert_one.sh \
 --file ../data_dump/perfil_insert_one.sh \
+
+# Check the exit code of the last command
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to create indexes"
+    exit 1
+fi
+
+# Create indexes
+mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "use gameStoreFinal21" \
+--eval "db.juegos.createIndex({juego_id: 1})" \
+--eval "db.usuarios.createIndex({usuario_id: 1})" \
+--eval "db.biblioteca.createIndex({'usuario.usuario_id': 1})" \
+--eval "db.biblioteca.createIndex({'juegos.juego_id': 1})" \
+--eval "db.biblioteca.createIndex({'juegos.query': 1})" \
+--eval "db.biblioteca.createIndex({'usuario.query': 1})" \
+
+
+# Check the exit code of the last command
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to create indexes"
+    exit 1
+fi
+
+mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "use gameStoreFinal21" \
 --file ../data_dump/biblioteca_insert_many.js \
 --file ../data_dump/juego_insert_many.js \
 --file ../data_dump/usuario_insert_many.js \
 
 # Check the exit code of the last command
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to create collections"
+    echo "Error: Failed to insert data"
     exit 1
 fi

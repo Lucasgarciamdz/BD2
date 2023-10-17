@@ -14,6 +14,10 @@ db.createCollection("biblioteca", {
               description: "Id del usuario",
               uniqueItems: true
             },
+            query: {
+              bsonType: "bool",
+              description: "Si necesita actualizar el usuario o no"
+            },
             nombre_usuario: {
               bsonType: "string",
               description: "Nombre del usuario"
@@ -29,13 +33,17 @@ db.createCollection("biblioteca", {
           description: "Todos los juegos del usuario",
           items: {
             bsonType: "object",
-            required: ["juego_id", "title", "imagen_url", "tiempo_jugado", "ultima_vez_jugado"],
+            required: ["juego_id", "titulo", "imagen_url", "tiempo_jugado", "ultima_vez_jugado"],
             properties: {
               juego_id: {
                 bsonType: "number",
                 description: "Id del juego"
               },
-              title: {
+              query: {
+                bsonType: "bool",
+                description: "Si necesita actualizar el juego o no"
+              },
+              titulo: {
                 bsonType: "string",
                 description: "Título del juego"
               },
