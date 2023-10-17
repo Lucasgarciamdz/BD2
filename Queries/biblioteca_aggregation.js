@@ -1,10 +1,5 @@
 db.biblioteca.aggregate([
-  {
-    $match: {
-      "usuario.query": true,
-      "juegos.query": true,
-    },
-  },
+  { $match: { "usuario.query": true, "juegos.query": true } },
   {
     $lookup: {
       from: "usuarios",
@@ -19,10 +14,7 @@ db.biblioteca.aggregate([
       "usuario.foto_perfil": { $first: "$usuario_info.foto_perfil" },
     },
   },
-  { $unset: ["usuario_info"] },
-  {
-    $unwind: "$juegos",
-  },
+  { $unset: ["usuario_info", "usuario.query"] },
   {
     $lookup: {
       from: "juegos",
@@ -33,14 +25,49 @@ db.biblioteca.aggregate([
   },
   {
     $set: {
-      "juegos.titulo": { $first: "$juego_info.titulo" },
-      "juegos.imagen_url": { $first: "$juego_info.imagen_url" },
+      juegos: {
+        $let: {
+          vars: { juegos: "$juegos", juego_info: "$juego_info" },
+          in: {
+            $map: {
+              input: "$$juegos",
+              as: "juego",
+              in: {
+                $let: {
+                  vars: {
+                    info: {
+                      $arrayElemAt: [
+                        {
+                          $filter: {
+                            input: "$$juego_info",
+                            as: "info",
+                            cond: {
+                              $eq: ["$$info.juego_id", "$$juego.juego_id"],
+                            },
+                          },
+                        },
+                        0,
+                      ],
+                    },
+                  },
+                  in: {
+                    $mergeObjects: [
+                      "$$juego",
+                      {
+                        titulo: "$$info.titulo",
+                        imagen_url: "$$info.imagen_url",
+                      },
+                    ],
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     },
   },
-  {
-    $unset: ["juego_info"],
-  },
-  {$},
+  { $unset: ["juego_info", "juegos.query"] },
   {
     $merge: {
       into: "biblioteca",
@@ -48,5 +75,5 @@ db.biblioteca.aggregate([
       whenMatched: "replace",
       whenNotMatched: "discard",
     },
-  }
-])
+  },
+]);

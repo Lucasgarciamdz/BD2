@@ -23,7 +23,8 @@ async function insertGameData() {
                     "screenshots": ["https://picsum.photos/id/" + i + 2 + "/200/300", "https://picsum.photos/id/" + i + 3+ "/200/300", "https://picsum.photos/id/" + i + + 4 +"/200/300"],
                     "tags": ["tag" + i, "tag" + i + 1, "tag" + i + 2],
                     "logros": ["logro" + i, "logro" + i + 1],
-                    "valoracion": (Math.floor(Math.random() * 101) * 0.1).toFixed(1)
+                    "valoracion": parseFloat((Math.floor(Math.random() * 101) * 0.1).toFixed(1))
+                    
         };
 
         await collection.insertOne(juegosData);
