@@ -5,7 +5,7 @@ db.createCollection("juegos",
     validator:{
         $jsonSchema:{
             bsonType: "object",
-            required: ["juego_id", "titulo", "descripcion", "desarrolladores", "fecha_lanzamiento", "rating", "precio", "genero", "plataforma", "imagen_url", "video_url", "screenshots", "tags", "logros"],
+            required: ["juego_id", "titulo", "descripcion", "desarrolladores", "fecha_lanzamiento", "rating", "precio", "genero", "plataforma", "imagen_url", "video_url", "screenshots", "tags", "logros", "valoracion"],
             properties: {
                 juego_id: {
                     bsonType: "number",
@@ -105,6 +105,10 @@ db.createCollection("juegos",
                         bsonType: "string",
                         description: "Logro del juego"
                     }
+                },
+                valoracion: {
+                    bsonType: "number",
+                    description: "Valoración del juego"
                 }
             }
         }

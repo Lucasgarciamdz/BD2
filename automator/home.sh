@@ -32,16 +32,24 @@ db.createCollection("home_page", {
             required: ["game_id", "precio", "rating"],
             properties: {
               game_id: {
-                bsonType: "objectId",
+                bsonType: "number",
                 description: "Id del juego"
               },
+              nombre: {
+                bsonType: "string",
+                description: "Nombre del juego"
+              },
+              imagen_url: {
+                bsonType: "string",
+                description: "Imagen del juego"
+              },
               precio: {
-                bsonType: "double",
+                bsonType: "number",
                 description: "Precio del juego"
               },
-              rating: {
-                bsonType: "double",
-                description: "Rating del juego"
+              calificacion: {
+                bsonType: "number",
+                description: "Calificacion del juego"
               }
             }
           }
@@ -54,15 +62,23 @@ db.createCollection("home_page", {
             required: ["game_id", "precio", "porcentaje_descuento"],
             properties: {
               game_id: {
-                bsonType: "objectId",
+                bsonType: "number",
                 description: "Id del juego"
               },
+              nombre: {
+                bsonType: "string",
+                description: "Nombre del juego"
+              },
+              imagen_url: {
+                bsonType: "string",
+                description: "Imagen del juego"
+              },
               precio: {
-                bsonType: "double",
+                bsonType: "number",
                 description: "Precio del juego"
               },
               porcentaje_descuento: {
-                bsonType: "double",
+                bsonType: "number",
                 description: "Porcentaje de descuento del juego"
               }
             }
