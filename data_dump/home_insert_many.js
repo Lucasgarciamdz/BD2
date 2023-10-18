@@ -57,42 +57,42 @@ async function insertHomeData() {
       "query": true
     };
 
-    const updatedAnunciantes = await Promise.all(listaAnunciantes.map(async (anunciante) => {
-      if (anunciante.query) {
-        const anuncianteInfo = await db.collection('anunciantes').findOne({ "anunciante_id": anunciante.anunciante_id });
-        if (anuncianteInfo) {
-          return {
-            ...anunciante,
-            "nombre": anuncianteInfo.nombre,
-            "imagen_url": anuncianteInfo.imagen_url
-          };
-        }
-      }
-      return anunciante;
-    }));
+    // const updatedAnunciantes = await Promise.all(listaAnunciantes.map(async (anunciante) => {
+    //   if (anunciante.query) {
+    //     const anuncianteInfo = await db.collection('anunciantes').findOne({ "anunciante_id": anunciante.anunciante_id });
+    //     if (anuncianteInfo) {
+    //       return {
+    //         ...anunciante,
+    //         "nombre": anuncianteInfo.nombre,
+    //         "imagen_url": anuncianteInfo.imagen_url
+    //       };
+    //     }
+    //   }
+    //   return anunciante;
+    // }));
     
-    const updatedJuegosDescuentos = await Promise.all(listaJuegosDescuentos.map(async (juegoDescuento) => {
-      if (juegoDescuento.query) {
-        const juegoDescuentoInfo = await db.collection('juegos').findOne({ "juego_id": juegoDescuento.juego_id });
-        if (juegoDescuentoInfo) {
-          return {
-            ...juegoDescuento,
-            "titulo": juegoDescuentoInfo.nombre,
-            "imagen_url": juegoDescuentoInfo.imagen_url,
-            "precio": juegoDescuentoInfo.precio
-          };
-        }
-      }
-      return juegoDescuento;
-    }));
+    // const updatedJuegosDescuentos = await Promise.all(listaJuegosDescuentos.map(async (juegoDescuento) => {
+    //   if (juegoDescuento.query) {
+    //     const juegoDescuentoInfo = await db.collection('juegos').findOne({ "juego_id": juegoDescuento.juego_id });
+    //     if (juegoDescuentoInfo) {
+    //       return {
+    //         ...juegoDescuento,
+    //         "titulo": juegoDescuentoInfo.nombre,
+    //         "imagen_url": juegoDescuentoInfo.imagen_url,
+    //         "precio": juegoDescuentoInfo.precio
+    //       };
+    //     }
+    //   }
+    //   return juegoDescuento;
+    // }));
     
-    if (usuario.query) {
-      const usuarioInfo = await db.collection('usuarios').findOne({ "usuario_id": usuario.usuario_id });
-      if (usuarioInfo) {
-        usuario.nombre_usuario = usuarioInfo.nombre_usuario;
-        usuario.foto_perfil = usuarioInfo.foto_perfil;
-      }
-    }
+    // if (usuario.query) {
+    //   const usuarioInfo = await db.collection('usuarios').findOne({ "usuario_id": usuario.usuario_id });
+    //   if (usuarioInfo) {
+    //     usuario.nombre_usuario = usuarioInfo.nombre_usuario;
+    //     usuario.foto_perfil = usuarioInfo.foto_perfil;
+    //   }
+    // }
 
     const homeData = {
       "usuario": usuario,
