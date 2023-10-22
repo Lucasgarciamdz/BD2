@@ -9,7 +9,6 @@ async function insertHomeData() {
 
   for (let i = 1; i < 1000; i++) {
     const listaAnunciantes = [];
-    const listaJuegosDescuentos = [];
     const listaIdiomas = ["español", "ingles", "italiano", "portugues", "ruso", "frances", "aleman"];
     const listaRegiones = ["suramerica", "centroamerica", "america del norte", "europa oeste", "europa este", "asia este", "asia oeste"];
     const numAnunciantes = Math.floor(Math.random() * 10);
@@ -23,16 +22,18 @@ async function insertHomeData() {
       });
     }
 
-    for (let j = 0; j < 10; j++) {
-      listaJuegosDescuentos.push({
-        "juego_id": j,
-        "titulo": "query",
-        "imagen_url": "query",
-        "precio": "query",
-        "descuento": (Math.floor(Math.random() * 1001) * 0.1).toFixed(1),
-        "query": true
-      });
-    }
+    const listaJuegosDescuentos = await db.collection('juegos')
+    .find({ descuento: { $gt: 0 } }) // Filtra juegos con descuento
+    .limit(10) // Limita a los primeros 10 resultados
+    .project({
+      juego_id: 1,
+      nombre: 1,
+      imagen_url: 1,
+      precio: 1,
+      descuento: 1,
+    })
+    .toArray();
+  
 
     const listaJuegosDestacados = await db.collection('juegos')
       .find({})
@@ -57,70 +58,13 @@ async function insertHomeData() {
       "query": true
     };
 
-
-    const updatedJuegosDescuentos = await db.collection('juegos')
-    .find({ descuento: { $gt: 0 } }) // Filtra juegos con descuento
-    .limit(10) // Limita a los primeros 10 resultados
-    .project({
-      juego_id: 1,
-      nombre: 1,
-      imagen_url: 1,
-      precio: 1,
-      descuento: 1,
-    })
-    .toArray();
-
-    const updatedAnunciantes = await db.collection('anunciantes')
-    .aggregate([{ $sample: { size: 1 } }]) // Devuelve un anunciante al azar
-    .toArray();
-  
-
-  // Ahora tienes un anunciante aleatorio en la variable anunciante
-  
-    // const updatedAnunciantes = await Promise.all(listaAnunciantes.map(async (anunciante) => {
-    //   if (anunciante.query) {
-    //     const anuncianteInfo = await db.collection('anunciantes').findOne({ "anunciante_id": anunciante.anunciante_id });
-    //     if (anuncianteInfo) {
-    //       return {
-    //         ...anunciante,
-    //         "nombre": anuncianteInfo.nombre,
-    //         "imagen_url": anuncianteInfo.imagen_url
-    //       };
-    //     }
-    //   }
-    //   return anunciante;
-    // }));
-    
-    // const updatedJuegosDescuentos = await Promise.all(listaJuegosDescuentos.map(async (juegoDescuento) => {
-    //   if (juegoDescuento.query) {
-    //     const juegoDescuentoInfo = await db.collection('juegos').findOne({ "juego_id": juegoDescuento.juego_id });
-    //     if (juegoDescuentoInfo) {
-    //       return {
-    //         ...juegoDescuento,
-    //         "titulo": juegoDescuentoInfo.nombre,
-    //         "imagen_url": juegoDescuentoInfo.imagen_url,
-    //         "precio": juegoDescuentoInfo.precio
-    //       };
-    //     }
-    //   }
-    //   return juegoDescuento;
-    // }));
-    
-    // if (usuario.query) {
-    //   const usuarioInfo = await db.collection('usuarios').findOne({ "usuario_id": usuario.usuario_id });
-    //   if (usuarioInfo) {
-    //     usuario.nombre_usuario = usuarioInfo.nombre_usuario;
-    //     usuario.foto_perfil = usuarioInfo.foto_perfil;
-    //   }
-    // }
-
     const homeData = {
       "usuario": usuario,
       "idioma": idioma,
       "region": region,
       "anunciantes": updatedAnunciantes, //queri q trae anunciantes para cada home
       "juegos_destacados": listaJuegosDestacados, //comun para todo user
-      "juegos_descuento": updatedJuegosDescuentos //comun para todo user
+      "juegos_descuento": listaJuegosDescuentos //comun para todo user
     };
 
     await collection.insertOne(homeData);
