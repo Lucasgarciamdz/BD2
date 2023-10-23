@@ -8,40 +8,41 @@ async function insertHomeData() {
   const collection = db.collection('home');
 
   for (let i = 1; i < 1000; i++) {
-    const listaAnunciantes = [];
     const listaIdiomas = ["español", "ingles", "italiano", "portugues", "ruso", "frances", "aleman"];
     const listaRegiones = ["suramerica", "centroamerica", "america del norte", "europa oeste", "europa este", "asia este", "asia oeste"];
-    const numAnunciantes = Math.floor(Math.random() * 10);
-    const descuentos = [76, 20, 15, 68, 10, 46, 85, 6, 52, 25]
+    const numAnunciantes = Math.floor(Math.random() * 5) + 1; // Generar entre 1 y 5 anunciantes al azar
+    const descuentos = [76, 20, 15, 68, 10, 46, 85, 6, 52, 25];
 
-    for (let j = 0; j < numAnunciantes; j++) {
-      listaAnunciantes.push({
-        "anunciante_id": j,
-        "nombre": "query",
-        "imagen_url": "query",
-        "query": true
-      });
-    }
+    // Selecciona "numAnunciantes" anunciantes al azar de tu colección de anunciantes
+    const listaAnunciantes = await db.collection('anunciantes')
+      .aggregate([{ $sample: { size: numAnunciantes } }])
+      .project({
+        anunciante_id: 1,
+        empresa: 1,
+        imagen_url: 1,
+        region: 1,
+      })
+      .toArray();
 
     const listaJuegosDescuentos = await db.collection('juegos')
-    .find()
-    .limit(10)
-    .project({
-      juego_id: 1,
-      nombre: 1,
-      imagen_url: 1,
-      precio: 1,
-      descuento: 1  ,
-    })
-    .toArray();
+      .find()
+      .limit(10)
+      .project({
+        juego_id: 1,
+        nombre: 1,
+        imagen_url: 1,
+        precio: 1,
+        descuento: 1,
+      })
+      .toArray();
 
     for (let i = 0; i < listaJuegosDescuentos.length; i++) {
       listaJuegosDescuentos[i].descuento = descuentos[i];
     }
-  
+
     const listaJuegosDestacados = await db.collection('juegos')
       .find({})
-      .sort({ calificacion: -1 }) 
+      .sort({ calificacion: -1 })
       .limit(10)
       .project({
         game_id: 1,
@@ -54,7 +55,7 @@ async function insertHomeData() {
 
     const idioma = listaIdiomas[Math.floor(Math.random() * listaIdiomas.length)];
     const region = listaRegiones[Math.floor(Math.random() * listaRegiones.length)];
-  
+
     const usuario = {
       "usuario_id": i,
       "nombre_usuario": "query",
@@ -66,9 +67,9 @@ async function insertHomeData() {
       "usuario": usuario,
       "idioma": idioma,
       "region": region,
-      "anunciantes": listaAnunciantes, //queri q trae anunciantes para cada home
-      "juegos_destacados": listaJuegosDestacados, //comun para todo user
-      "juegos_descuento": listaJuegosDescuentos //comun para todo user
+      "anunciantes": listaAnunciantes,
+      "juegos_destacados": listaJuegosDestacados,
+      "juegos_descuento": listaJuegosDescuentos
     };
 
     await collection.insertOne(homeData);
