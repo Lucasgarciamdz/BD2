@@ -62,7 +62,7 @@ async function insertHomeData() {
       "usuario": usuario,
       "idioma": idioma,
       "region": region,
-      "anunciantes": updatedAnunciantes, //queri q trae anunciantes para cada home
+      "anunciantes": listaAnunciantes, //queri q trae anunciantes para cada home
       "juegos_destacados": listaJuegosDestacados, //comun para todo user
       "juegos_descuento": listaJuegosDescuentos //comun para todo user
     };
