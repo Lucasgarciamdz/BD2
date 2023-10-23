@@ -10,13 +10,13 @@ async function countPlayersByRegion() {
   const pipeline = [
     {
       $group: {
-        _id: '$region', // Agrupar por la región
-        totalPlayers: { $sum: 1 } // Contar jugadores en cada región
+        _id: '$region', 
+        totalPlayers: { $sum: 1 } 
       }
     }
   ];
 
-  const result = await homeCollection.aggregate(pipeline).toArray();
+  const result = await home.aggregate(pipeline).toArray();
 
   console.log(result);
 }
