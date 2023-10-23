@@ -12,6 +12,7 @@ async function insertHomeData() {
     const listaIdiomas = ["español", "ingles", "italiano", "portugues", "ruso", "frances", "aleman"];
     const listaRegiones = ["suramerica", "centroamerica", "america del norte", "europa oeste", "europa este", "asia este", "asia oeste"];
     const numAnunciantes = Math.floor(Math.random() * 10);
+    const descuentos = [76, 20, 15, 68, 10, 46, 85, 6, 52, 25]
 
     for (let j = 0; j < numAnunciantes; j++) {
       listaAnunciantes.push({
@@ -23,18 +24,21 @@ async function insertHomeData() {
     }
 
     const listaJuegosDescuentos = await db.collection('juegos')
-    .find({ descuento: { $gt: 0 } }) // Filtra juegos con descuento
-    .limit(10) // Limita a los primeros 10 resultados
+    .find()
+    .limit(10)
     .project({
       juego_id: 1,
       nombre: 1,
       imagen_url: 1,
       precio: 1,
-      descuento: 1,
+      descuento: 1  ,
     })
     .toArray();
-  
 
+    for (let i = 0; i < listaJuegosDescuentos.length; i++) {
+      listaJuegosDescuentos[i].descuento = descuentos[i];
+    }
+  
     const listaJuegosDestacados = await db.collection('juegos')
       .find({})
       .sort({ calificacion: -1 }) 
