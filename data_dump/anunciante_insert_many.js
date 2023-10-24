@@ -1,16 +1,16 @@
 const MongoClient = require('mongodb').MongoClient;
 
 const paisesEIdiomas = [
-    { pais: 'Argentina', idioma: 'Español' },
-    { pais: 'Estados Unidos', idioma: 'Inglés' },
-    { pais: 'Francia', idioma: 'Francés' },
-    { pais: 'Alemania', idioma: 'Alemán' },
-    { pais: 'España', idioma: 'Español' },
-    { pais: 'Italia', idioma: 'Italiano' },
-    { pais: 'Japón', idioma: 'Japonés' },
-    { pais: 'China', idioma: 'Mandarín' },
-    { pais: 'Brasil', idioma: 'Portugués' },
-    { pais: 'Rusia', idioma: 'Ruso' }
+    { pais: 'Argentina', idioma: 'Español', region: 'suramerica' },
+    { pais: 'Estados Unidos', idioma: 'Inglés', region: 'america del norte' },
+    { pais: 'Francia', idioma: 'Francés', region: 'europa oestel' },
+    { pais: 'Alemania', idioma: 'Alemán', region: 'europa oestel' },
+    { pais: 'España', idioma: 'Español', region: 'europa oeste' },
+    { pais: 'Italia', idioma: 'Italiano', region: 'europa oeste' },
+    { pais: 'Japón', idioma: 'Japonés', region: 'asia este' },
+    { pais: 'China', idioma: 'Mandarín', region: 'asia este' },
+    { pais: 'Brasil', idioma: 'Portugués', region: 'suramerica' },
+    { pais: 'Rusia', idioma: 'Ruso', region: 'europa este' }
 ];
 
 async function insertAnuncianteData() {
@@ -24,6 +24,7 @@ async function insertAnuncianteData() {
         const random = paisesEIdiomas[Math.floor(Math.random() * paisesEIdiomas.length)];
         const pais = random.pais;
         const idioma = random.idioma;
+        const region = random.region;
 
         const anuncianteData = {
             "anunciante_id": i,
@@ -32,7 +33,8 @@ async function insertAnuncianteData() {
             "descripcion": "despata una coca cola, destapa felicidad",
             "tiempo_de_publicidad": new Date(),
             "pais": pais,
-            "idioma": idioma
+            "idioma": idioma,
+            "region": region
         };
 
         await collection.insertOne(anuncianteData);

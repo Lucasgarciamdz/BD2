@@ -42,6 +42,8 @@ mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "u
 --eval "db.biblioteca.createIndex({'juegos.juego_id': 1})" \
 --eval "db.biblioteca.createIndex({'juegos.query': 1})" \
 --eval "db.biblioteca.createIndex({'usuario.query': 1})" \
+--eval "db.usuarios.createIndex({region: 1 })" \
+--eval "db.anunciantes.createIndex({region: 1 })"
 
 
 if [ $? -ne 0 ]; then

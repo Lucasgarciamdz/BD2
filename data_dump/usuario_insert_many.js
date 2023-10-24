@@ -9,7 +9,7 @@ async function insertUsuarioData() {
 
     const listaRegiones = ["suramerica", "centroamerica", "america del norte", "europa oeste", "europa este", "asia este", "asia oeste"];
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1000000; i++) {
         const userData = {
             "usuario_id": i,
             "nombre": "Lucas" + i,

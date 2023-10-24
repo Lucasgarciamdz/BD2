@@ -1,15 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
 
-// Define la función para obtener un subconjunto aleatorio de un array
-function getRandomSubset(array, size) {
-  const shuffled = array.slice(); // Copia del array de anunciantes
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Intercambia elementos aleatoriamente
-  }
-  return shuffled.slice(0, size); // Devuelve los primeros "size" elementos del array barajado
-}
-
 async function insertHomeData() {
   const url = 'mongodb://localhost:27017';
   const dbName = 'gameStoreFinal21';
@@ -20,23 +10,7 @@ async function insertHomeData() {
   for (let i = 1; i < 1000; i++) {
     const listaIdiomas = ["español", "ingles", "italiano", "portugues", "ruso", "frances", "aleman"];
     const listaRegiones = ["suramerica", "centroamerica", "america del norte", "europa oeste", "europa este", "asia este", "asia oeste"];
-    const numAnunciantes = Math.floor(Math.random() * 5) + 1; // Generar entre 1 y 5 anunciantes al azar
     const descuentos = [76, 20, 15, 68, 10, 46, 85, 6, 52, 25];
-
-    // Selecciona "numAnunciantes" anunciantes al azar de tu colección de anunciantes
-    const listaAnunciantes = await db.collection('anunciantes')
-      .aggregate([{ $sample: { size: numAnunciantes } }])
-      .project({
-        anunciante_id: 1,
-        empresa: 1,
-        imagen_url: 1,
-        region: 1,
-      })
-      .toArray();
-
-    // Usa la función para obtener un subconjunto aleatorio de anunciantes
-    const numAnunciantesAsignados = Math.floor(Math.random() * 10) + 1;
-    const anunciantesAsignados = getRandomSubset(listaAnunciantes, numAnunciantesAsignados);
 
     const listaJuegosDescuentos = await db.collection('juegos')
       .find()
@@ -77,13 +51,20 @@ async function insertHomeData() {
       "query": true
     };
 
+    const anunciantes = {
+      "anunciante_id": i,
+      "nombre_empresa": "Coca Cola" + i,
+      "imagen_url": "href",
+      "query": true
+    };
+
     const homeData = {
       "usuario": usuario,
       "idioma": idioma,
       "region": region,
-      "anunciantes": anunciantesAsignados, // Usa los anunciantes asignados aleatoriamente
       "juegos_destacados": listaJuegosDestacados,
-      "juegos_descuento": listaJuegosDescuentos
+      "juegos_descuento": listaJuegosDescuentos,
+      "anunciantes": anunciantes
     };
 
     await collection.insertOne(homeData);
