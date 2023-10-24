@@ -15,4 +15,8 @@ db.anunciantes.aggregate([
         usuarios_region: { $size: "$usuarios_region" }
       }
     }
-  ]);
+  ]).explain("executionStats");
+
+
+  // sin index 42,097ms
+  // con index 19,084ms
