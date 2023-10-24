@@ -23,7 +23,7 @@ db.biblioteca.aggregate([
         promedioJuegos: { $avg: "$totalJuegos" }
       }
     }
-  ]).explain("executionStats");
+  ]);
 
       // sin index  390,332ms
       // con index  56,000ms
