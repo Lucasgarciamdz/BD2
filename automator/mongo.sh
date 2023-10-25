@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Create collections
 mongosh --norc -u "testing" -p "12354" --authenticationDatabase "test" --eval "use gameStoreFinal21" \
 --file ./usuario.sh \
